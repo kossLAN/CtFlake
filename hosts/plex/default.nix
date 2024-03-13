@@ -70,7 +70,7 @@
   users.users.cloudftp = {
     isNormalUser = true;
     initialPassword = "root";
-    extraGroups = [ "vsftpd" ];
+    extraGroups = [ "vsftpd" "cloudftp" ];
   };
 
   users.users.root.initialPassword = "root";
