@@ -46,32 +46,12 @@
       enable = true;
     };
 
-    samba = {
+    vsftpd = {
       enable = true;
-      securityType = "user";
-      openFirewall = true;
-      extraConfig = ''
-        workgroup = smbnix
-        server string = smbnix
-        netbios name = smbnix
-        security = user
-        hosts allow = 192.168.10.103 192.168.10.102 127.0.0.1 localhost
-        hosts deny = 0.0.0.0/0
-        guest account = nobody
-        map to guest = bad user
-      '';
-      shares = {
-        public = {
-          path = "/media";
-          browseable = "yes";
-          "read only" = "no";
-          "guest ok" = "yes";
-          "create mask" = "0644";
-          "directory mask" = "0755";
-          "force user" = "ncloud";
-          "force group" = "users";
-        };
-      };
+      writeEnable = true;
+      localUsers = true;
+      userlist = [ "root" ];
+      userlistEnable = true;
     };
   };
 
