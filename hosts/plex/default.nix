@@ -52,7 +52,7 @@
       enable = true;
       writeEnable = true;
       localUsers = true;
-      userlist = [ "root" ];
+      userlist = [ "root" "cloudftp" ];
       userlistEnable = true;
       localRoot = "/media";
 
@@ -70,7 +70,7 @@
   users.users.cloudftp = {
     isNormalUser = true;
     initialPassword = "root";
-    extraGroups = [ "vsftpd" "cloudftp" ];
+    extraGroups = [ "vsftpd" ];
   };
 
   users.users.root.initialPassword = "root";
