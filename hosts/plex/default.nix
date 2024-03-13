@@ -80,9 +80,8 @@
   };
 
   users.users.syncthing = {
-    isNormalUser = true;
     initialPassword = "root";
-    extraGroups = [ "nextcloud" ];
+    extraGroups = [ "plex" ];
   };
 
   users.users.root.initialPassword = "root";
