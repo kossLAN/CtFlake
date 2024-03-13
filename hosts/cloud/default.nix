@@ -61,7 +61,7 @@
       phpExtraExtensions = all: [ all.smbclient all.inotify ];
 
       phpOptions = {
-        "opcache.interned_strings_buffer" = 16;
+        "opcache.interned_strings_buffer" = 24;
       };
 
       settings = {
