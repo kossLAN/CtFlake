@@ -34,7 +34,8 @@
   };
 
   networking.firewall = {
-    allowedTCPPorts = [ 20 21 32400 ];
+    allowedTCPPorts = [ 20 21 32400 8384 ];
+    allowedUDPPorts = [ 22000 21027 ];
   };
 
   systemd.tmpfiles.rules = [ "d /media 2770 vsftpd vsftpd - -" ];
@@ -48,18 +49,23 @@
       enable = true;
     };
 
-    vsftpd = {
+    syncthing = {
       enable = true;
-      writeEnable = true;
-      localUsers = true;
-      userlist = [ "root" "cloudftp" ];
-      userlistEnable = true;
-      localRoot = "/media";
-
-      extraConfig = ''
-        local_umask=007
-      '';
+      guiAddress = "0.0.0.0:8384";
     };
+
+    # vsftpd = {
+    #   enable = true;
+    #   writeEnable = true;
+    #   localUsers = true;
+    #   userlist = [ "root" "cloudftp" ];
+    #   userlistEnable = true;
+    #   localRoot = "/media";
+    #
+    #   extraConfig = ''
+    #     local_umask=007
+    #   '';
+    # };
   };
 
   system.activationScripts.installInitScript = lib.mkForce ''
@@ -71,6 +77,12 @@
     isNormalUser = true;
     initialPassword = "root";
     extraGroups = [ "vsftpd" ];
+  };
+
+  users.users.syncthing = {
+    isNormalUser = true;
+    initialPassword = "root";
+    extraGroups = [ "nextcloud" ];
   };
 
   users.users.root.initialPassword = "root";
