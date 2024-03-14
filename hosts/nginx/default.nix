@@ -68,8 +68,6 @@
             proxyPass = "http://192.168.10.102";
             proxyWebsockets = true;
             extraConfig = ''
-              limit_rate 50k;
-              limit_rate_after 500k;
               client_max_body_size 512M;
               client_body_timeout 300s;
               fastcgi_buffers 64 4K;
