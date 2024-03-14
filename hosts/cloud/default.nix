@@ -39,18 +39,15 @@
     allowedUDPPorts = [ 21027 22000 ];
   };
 
+  # I'm not really sure how can I not use the nix path here, because the nextcloud pkg doesn't provide this an output
   systemd.services."inotify-nextcloud" = {
     wantedBy = [ "multi-user.target" ];
     after = [ "network.target" ];
     description = "Run inotify watcher for nextcloud.";
     serviceConfig = {
-      Restart = "on-failure";
-      SuccessExitStatus = "3 4";
-      RestartForceExitStatus = "3 4";
-      Type = "notify";
-      User = "nextcloud";
-      Group = "nextcloud";
-      ExecStart = "nextcloud-occ files_external:notify -v 1";
+      Type = "simple";
+      ExecStart = "/nix/store/f6535006f9yjgr40c9j31lghvf85frax-system-path/bin/nextcloud-occ files_external:notify -v 1";
+      Restart = "always";
     };
   };
 
