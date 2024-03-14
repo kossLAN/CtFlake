@@ -63,10 +63,14 @@
         "nextcloud.kosslan.dev" = {
           enableACME = true;
           forceSSL = true;
+          extraConfig = ''
+            limit_req_zone $binary_remote_addr zone=mylimit:50m rate=50r/s;
+          '';
           locations."/" = {
             proxyPass = "http://192.168.10.102";
             proxyWebsockets = true;
             extraConfig = ''
+              limit_req zone=mylimit;
               client_max_body_size 512M;
               client_body_timeout 300s;
               fastcgi_buffers 64 4K;
