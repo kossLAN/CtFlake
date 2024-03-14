@@ -61,6 +61,7 @@
       recommendedTlsSettings = true;
       virtualHosts = {
         "nextcloud.kosslan.dev" = {
+          serverAliases = [ "cloud.kosslan.dev" ];
           enableACME = true;
           forceSSL = true;
           locations."/" = {
