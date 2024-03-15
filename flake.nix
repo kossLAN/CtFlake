@@ -33,6 +33,10 @@
           hostname = "plex";
           desktop = "";
         };
+        wireguard = libx.mkHost {
+          hostname = "wireguard";
+          desktop = "";
+        };
       };
 
       # LXC Images
@@ -46,6 +50,9 @@
 
       nginx = libx.mkLxcImage {
         hostname = "nginx";
+      };
+      wireguard = libx.mkLxcImage {
+        hostname = "wireguard";
       };
     };
 }

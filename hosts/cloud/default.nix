@@ -26,6 +26,9 @@
     git
     gh
     vim
+
+    # Use rclone to share cloud storage with plex...
+    rclone
   ];
 
   boot.isContainer = true;
@@ -73,7 +76,7 @@
       phpExtraExtensions = all: [ all.smbclient all.inotify ];
 
       phpOptions = {
-        "opcache.interned_strings_buffer" = 24;
+        "opcache.interned_strings_buffer" = 32;
       };
 
       settings = {
