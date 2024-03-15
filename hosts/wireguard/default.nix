@@ -27,7 +27,6 @@
     git
     gh
     vim
-    wireguard
     wireguard-tools
   ];
 
