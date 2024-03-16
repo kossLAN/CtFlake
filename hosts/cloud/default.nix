@@ -56,12 +56,12 @@
       configureRedis = true;
       notify_push.enable = false;
       https = true;
+      maxUploadSize = "50G";
 
       phpExtraExtensions = all: [ all.smbclient all.inotify ];
 
       phpOptions = {
         post_maxs_size = "50G";
-        upload_max_filesize = "50G";
         "opcache.interned_strings_buffer" = "32";
         "opcache.max_accelerated_files" = "10000";
         "opcache.memory_consumption" = "128";
