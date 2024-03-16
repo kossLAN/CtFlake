@@ -39,6 +39,17 @@
     allowedUDPPorts = [ 21027 22000 ];
   };
 
+  systemd.services."inotify-nextcloud" = {
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network.target" ];
+    description = "Run inotify watcher for nextcloud.";
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "nextcloud-occ files_external:notify -v 1";
+      Restart = "always";
+    };
+  };
+
   services = {
     openssh = {
       enable = true;
