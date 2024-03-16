@@ -35,13 +35,21 @@
   };
 
   networking.firewall = {
-    allowedTCPPorts = [ 80 443 ];
-    allowedUDPPorts = [ ];
+    allowedTCPPorts = [ 80 443 8384 ];
+    allowedUDPPorts = [ 21027 22000 ];
   };
 
   services = {
     openssh = {
       enable = true;
+    };
+
+    syncthing = {
+      enable = true;
+      guiAddress = "0.0.0.0:8384";
+      user = "nextcloud";
+      group = "nextcloud";
+      dataDir = "/var/lib/nextcloud";
     };
 
     # IMPORTANT: MUST BE ENABLED OTHERWISE THIS DOES NOT WORK THANKS!!!!! WOW
