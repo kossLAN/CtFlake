@@ -45,10 +45,11 @@
     description = "Run inotify watcher for nextcloud.";
     serviceConfig = {
       Type = "simple";
+      User = "root";
       ExecStart = ''
-        /bin/sh -c "nextcloud-occ files_external:notify -v 1"
+        /bin/sh -c 'nextcloud-occ files_external:notify -v 1'
       '';
-      Restart = "always";
+      Restart = "on-failure";
     };
   };
 
