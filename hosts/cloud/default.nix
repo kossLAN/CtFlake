@@ -21,14 +21,11 @@
     };
   };
 
-  environment.etc."nc-adminpass".text = "Root12345!";
+  environment.etc."nc-adminpass".text = "root";
   environment.systemPackages = with pkgs; [
     git
     gh
     vim
-
-    # Use rclone to share cloud storage with plex...
-    rclone
   ];
 
   boot.isContainer = true;
@@ -38,20 +35,8 @@
   };
 
   networking.firewall = {
-    allowedTCPPorts = [ 22000 8384 80 443 ];
-    allowedUDPPorts = [ 21027 22000 ];
-  };
-
-  # I'm not really sure how can I not use the nix path here, because the nextcloud pkg doesn't provide this an output
-  systemd.services."inotify-nextcloud" = {
-    wantedBy = [ "multi-user.target" ];
-    after = [ "network.target" ];
-    description = "Run inotify watcher for nextcloud.";
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = "/nix/store/f6535006f9yjgr40c9j31lghvf85frax-system-path/bin/nextcloud-occ files_external:notify -v 1";
-      Restart = "always";
-    };
+    allowedTCPPorts = [ 80 443 ];
+    allowedUDPPorts = [ ];
   };
 
   services = {
@@ -110,14 +95,6 @@
         redis = true;
         memcached = true;
       };
-    };
-
-    syncthing = {
-      enable = true;
-      guiAddress = "0.0.0.0:8384";
-      user = "nextcloud";
-      group = "nextcloud";
-      dataDir = "/var/lib/nextcloud";
     };
   };
 

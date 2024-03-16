@@ -41,8 +41,8 @@
   boot.tmp.cleanOnBoot = true;
 
   networking.firewall = {
-    allowedTCPPorts = [ 22000 8384 80 443 32400 ];
-    allowedUDPPorts = [ 21027 22000 ];
+    allowedTCPPorts = [ 80 443 ];
+    allowedUDPPorts = [ ];
   };
 
   security.acme = {
