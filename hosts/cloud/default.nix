@@ -46,8 +46,6 @@
     serviceConfig = {
       Type = "simple";
       User = "root";
-      # Unfortunately, the people who packaged put the nextcloud-occ script in the module....
-      # If you have a better way of doing this PLEASE tell me.
       ExecStart = ''
         ${config.system.path}/bin/nextcloud-occ files_external:notify -v 1
       '';
