@@ -55,7 +55,6 @@
 
       configureRedis = true;
       notify_push.enable = false;
-      maxUploadSize = "51200M";
       https = true;
 
       phpExtraExtensions = all: [ all.smbclient all.inotify ];
