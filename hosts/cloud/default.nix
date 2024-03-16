@@ -61,7 +61,11 @@
       phpExtraExtensions = all: [ all.smbclient all.inotify ];
 
       phpOptions = {
-        "opcache.interned_strings_buffer" = 32;
+        post_maxs_size = "50G";
+        upload_max_filesize = "50G";
+        "opcache.interned_strings_buffer" = "32";
+        "opcache.max_accelerated_files" = "10000";
+        "opcache.memory_consumption" = "128";
       };
 
       settings = {
