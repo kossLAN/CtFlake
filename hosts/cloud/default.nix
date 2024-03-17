@@ -91,7 +91,7 @@
 
       settings = {
         trusted_domains = [ "nextcloud.kosslan.dev" ];
-        trusted_proxies = [ "192.168.10.115" "192.168.10.102" ];
+        trusted_proxies = [ "192.168.10.115" "192.168.10.102" "nextcloud.kosslan.dev" ];
         enabledPreviewProviders = [
           "OC\\Preview\\BMP"
           "OC\\Preview\\GIF"
