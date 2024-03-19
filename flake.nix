@@ -8,51 +8,49 @@
     };
   };
 
-  outputs =
-    { self
-    , nixpkgs
-    , ...
-    } @ inputs:
-    let
-      inherit (self) outputs;
-      stateVersion = "23.11";
-      libx = import ./lib { inherit inputs outputs stateVersion; };
-    in
-    {
-      # NixOS Configurations
-      nixosConfigurations = {
-        cloud = libx.mkHost {
-          hostname = "cloud";
-          desktop = "";
-        };
-        nginx = libx.mkHost {
-          hostname = "nginx";
-          desktop = "";
-        };
-        plex = libx.mkHost {
-          hostname = "plex";
-          desktop = "";
-        };
-        wireguard = libx.mkHost {
-          hostname = "wireguard";
-          desktop = "";
-        };
-      };
-
-      # LXC Images
-      cloud = libx.mkLxcImage {
+  outputs = {
+    self,
+    nixpkgs,
+    ...
+  } @ inputs: let
+    inherit (self) outputs;
+    stateVersion = "23.11";
+    libx = import ./lib {inherit inputs outputs stateVersion;};
+  in {
+    # NixOS Configurations
+    nixosConfigurations = {
+      cloud = libx.mkHost {
         hostname = "cloud";
+        desktop = "";
       };
-
-      plex = libx.mkLxcImage {
-        hostname = "plex";
-      };
-
-      nginx = libx.mkLxcImage {
+      nginx = libx.mkHost {
         hostname = "nginx";
+        desktop = "";
       };
-      wireguard = libx.mkLxcImage {
+      plex = libx.mkHost {
+        hostname = "plex";
+        desktop = "";
+      };
+      wireguard = libx.mkHost {
         hostname = "wireguard";
+        desktop = "";
       };
     };
+
+    # LXC Images
+    cloud = libx.mkLxcImage {
+      hostname = "cloud";
+    };
+
+    plex = libx.mkLxcImage {
+      hostname = "plex";
+    };
+
+    nginx = libx.mkLxcImage {
+      hostname = "nginx";
+    };
+    wireguard = libx.mkLxcImage {
+      hostname = "wireguard";
+    };
+  };
 }
