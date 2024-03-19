@@ -57,18 +57,14 @@
       wg0 = {
         ips = ["10.100.0.1/24"];
         listenPort = 51820;
+
         postSetup = ''
           ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o eth0 -j MASQUERADE
-          ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -i wg0 -p udp --dport 53 -j DNAT --to-destination 192.168.1.100:53
-          ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -o eth0 -j ACCEPT
-          ${pkgs.iptables}/bin/iptables -A FORWARD -i eth0 -o wg0 -m state --state RELATED,ESTABLISHED -j ACCEPT
         '';
 
+        # This undoes the above command
         postShutdown = ''
           ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/24 -o eth0 -j MASQUERADE
-          ${pkgs.iptables}/bin/iptables -t nat -D PREROUTING -i wg0 -p udp --dport 53 -j DNAT --to-destination 192.168.1.100:53
-          ${pkgs.iptables}/bin/iptables -D FORWARD -i wg0 -o eth0 -j ACCEPT
-          ${pkgs.iptables}/bin/iptables -D FORWARD -i eth0 -o wg0 -m state --state RELATED,ESTABLISHED -j ACCEPT
         '';
 
         privateKeyFile = "/etc/wg-private";
