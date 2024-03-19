@@ -59,14 +59,14 @@
         listenPort = 51820;
         postSetup = ''
           ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o eth0 -j MASQUERADE
-          PostUp  = iptables --table nat -A PREROUTING --in-interface wg0 --protocol udp --destination-port 53 --jump DNAT --to-destination 127.0.0.1
-          PostUp  = iptables --table nat -A PREROUTING --in-interface wg0 --protocol udp --destination-port 53 --jump DNAT --to-destination 192.168.10.104
+          ${pkgs.iptables}/bin/iptables --table nat -A PREROUTING --in-interface wg0 --protocol udp --destination-port 53 --jump DNAT --to-destination 127.0.0.1
+          ${pkgs.iptables}/bin/iptables --table nat -A PREROUTING --in-interface wg0 --protocol udp --destination-port 53 --jump DNAT --to-destination 192.168.10.104
         '';
 
         postShutdown = ''
           ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/24 -o eth0 -j MASQUERADE
-          PreDown = iptables --table nat -D PREROUTING --in-interface wg0 --protocol udp --destination-port 53 --jump DNAT --to-destination 127.0.0.1
-          PreDown = iptables --table nat -D PREROUTING --in-interface wg0 --protocol udp --destination-port 53 --jump DNAT --to-destination 192.168.10.104
+          ${pkgs.iptables}/bin/iptables --table nat -D PREROUTING --in-interface wg0 --protocol udp --destination-port 53 --jump DNAT --to-destination 127.0.0.1
+          ${pkgs.iptables}/bin/iptables --table nat -D PREROUTING --in-interface wg0 --protocol udp --destination-port 53 --jump DNAT --to-destination 192.168.10.104
         '';
 
         privateKeyFile = "/etc/wg-private";
