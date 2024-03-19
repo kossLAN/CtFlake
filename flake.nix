@@ -35,6 +35,10 @@
         hostname = "wireguard";
         desktop = "";
       };
+      adguard = libx.mkHost {
+        hostname = "adguard";
+        desktop = "";
+      };
     };
 
     # LXC Images
@@ -51,6 +55,9 @@
     };
     wireguard = libx.mkLxcImage {
       hostname = "wireguard";
+    };
+    adguard = libx.mkLxcImage {
+      hostname = "adguard";
     };
   };
 }

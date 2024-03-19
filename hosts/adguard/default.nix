@@ -43,47 +43,9 @@
   };
 
   networking = {
-    hostName = "wireguard";
-    firewall.allowedUDPPorts = [51820];
+    hostName = "adguard";
+    firewall.allowedUDPPorts = [];
     firewall.allowedTCPPorts = [80 53];
-
-    nat = {
-      enable = true;
-      externalInterface = "eth0";
-      internalInterfaces = ["wg0"];
-    };
-
-    wireguard.interfaces = {
-      wg0 = {
-        ips = ["10.100.0.1/24"];
-        listenPort = 51820;
-
-        postSetup = ''
-          ${pkgs.iptables}/bin/iptables --table nat -A PREROUTING --in-interface wg0 --protocol udp --destination-port 53 --jump DNAT --to-destination 10.100.0.1
-          ${pkgs.iptables}/bin/iptables --table nat -A POSTROUTING --protocol udp --destination-port 53 --jump MASQUERADE
-        '';
-
-        # This undoes the above command
-        postShutdown = ''
-          ${pkgs.iptables}/bin/iptables --table nat -D PREROUTING --in-interface wg0 --protocol udp --destination-port 53 --jump DNAT --to-destination 10.100.0.1
-          ${pkgs.iptables}/bin/iptables --table nat -D POSTROUTING --protocol udp --destination-port 53 --jump MASQUERADE
-        '';
-
-        privateKeyFile = "/etc/wg-private";
-        peers = [
-          # Phone
-          {
-            publicKey = "VZM6vpIOfaG2HyeQ1dnlvQqlv1Qx63C3uvS1kAlnwXQ=";
-            allowedIPs = ["10.100.0.2/32"];
-          }
-          # Everything else
-          {
-            publicKey = "VZM6vpIOfaG2HyeQ1dnlvQqlv1Qx63C3uvS1kAlnwXQ=";
-            allowedIPs = ["10.100.0.3/32"];
-          }
-        ];
-      };
-    };
   };
 
   system.activationScripts.installInitScript = lib.mkForce ''
