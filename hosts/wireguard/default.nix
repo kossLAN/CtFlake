@@ -58,17 +58,8 @@
         ips = ["10.100.0.1/24"];
         listenPort = 51820;
         # ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o eth0 -j MASQUERADE
-        postSetup = ''
-          ${pkgs.iptables}/bin/iptables --table nat -A POSTROUTING --protocol udp --destination-port 53 --jump MASQUERADE
-          ${pkgs.iptables}/bin/iptables --table nat -A PREROUTING --in-interface wg0 --protocol udp --destination-port 53 --jump DNAT --to-destination 10.100.0.0
-        '';
-
-        # ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/24 -o eth0 -j MASQUERADE
-
-        postShutdown = ''
-          ${pkgs.iptables}/bin/iptables --table nat -D POSTROUTING --protocol udp --destination-port 53 --jump MASQUERADE
-          ${pkgs.iptables}/bin/iptables --table nat -D PREROUTING --in-interface wg0 --protocol udp --destination-port 53 --jump DNAT --to-destination 10.100.0.0
-        '';
+        postSetup = ''${pkgs.iptables}/bin/iptables --table nat -A POSTROUTING --protocol udp --destination-port 53 --jump MASQUERADE '';
+        postShutdown = ''${pkgs.iptables}/bin/iptables --table nat -D POSTROUTING --protocol udp --destination-port 53 --jump MASQUERADE '';
 
         privateKeyFile = "/etc/wg-private";
         peers = [
